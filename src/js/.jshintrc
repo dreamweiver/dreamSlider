@@ -1,0 +1,22 @@
+{
+	"node": true,
+	"browser": true,
+	"es5": true,
+	"bitwise": true,
+	"camelcase": true,
+	"curly": true,
+	"eqeqeq": true,
+	"immed": true,
+	"indent": 4,
+	"latedef": true,
+	"maxparams": 5,
+	"newcap": true,
+	"noarg": true,
+	"quotmark": "single",
+	"undef": true,
+	"unused": true,
+	"predef": ["jQuery"],
+	"strict": true, //strict mode 
+	"maxerr" : 999 // max limit set for showing up jshint errors
+}
+
