@@ -1,7 +1,6 @@
 {
 	"node": true,
 	"browser": true,
-	"es5": true,
 	"bitwise": true,
 	"camelcase": true,
 	"curly": true,
@@ -16,7 +15,7 @@
 	"undef": true,
 	"unused": true,
 	"predef": ["jQuery"],
-	"strict": true, //strict mode 
+	"strict": true, //strict mode
 	"maxerr" : 999 // max limit set for showing up jshint errors
 }
 
