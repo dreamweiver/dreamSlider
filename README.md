@@ -12,6 +12,7 @@ Main Features
 +    Hover effects for thumbnails : Zoom-in(default),bounce,standout.
 +    Single image/Gallery mode to create an image slideshow with thumbnails
 +    Small file size,easy to implement.
++    No additional thumb images required.
 +    Browser support: v47.0,Firefox v42.0,IE11+ & many more to come.
 
 How to use dreamSlider?
@@ -26,14 +27,14 @@ add the following css style sheet to the &lt;head&gt; of your document.
 ### HTML Structure ###
 Add the following js scripts references to the body tag after the images are loaded for optimum performance benefit.
 ```html
-<div id="container">
-    <div id="im_wrapper" class="im_wrapper">
-        <div ><img src="images/thumbs/1.jpg" alt="" /></div>
-        <div ><img src="images/thumbs/2.jpg" alt="" /></div>
-        <div ><img src="images/thumbs/3.jpg" alt="" /></div>
-        <div ><img src="images/thumbs/4.jpg" alt="" /></div>
-        <div ><img src="images/thumbs/5.jpg" alt="" /></div>
-        <div ><img src="images/thumbs/6.jpg" alt="" /></div>
+<div class="container">
+    <div iclass="im_wrapper">
+        <div ><img src="images/1.jpg" alt="" /></div>
+        <div ><img src="images/2.jpg" alt="" /></div>
+        <div ><img src="images/3.jpg" alt="" /></div>
+        <div ><img src="images/4.jpg" alt="" /></div>
+        <div ><img src="images/5.jpg" alt="" /></div>
+        <div ><img src="images/6.jpg" alt="" /></div>
     </div>
 </div>
 
@@ -43,12 +44,12 @@ Add the following js scripts references to the body tag after the images are loa
 ...
 ```
 
-### Instantiating the awesomenes! ###
+### Instantiating the awesomeness! ###
 ```html
  <script type="text/javascript">
     $(function(){
         $('#container').dreamSlider({
-            rowCount:6
+            rowCount:6 //[limit 5 or 6] no of thumbs in a row
             //,easeEffect: 'bounce'
             //,easeEffect: 'standOut'
         });
@@ -63,6 +64,9 @@ If you need any help with implementing dreamSlider in your project or if have yo
 
 If you like dreamSlider then star this repository or if you any feebacks about this project then do drop me a mail.
 [@dreamweiver](mailto:dreamweiver.manoj@gmail.com)
+
+### Contributions ###
+Base idea of DreamSlider was created by [Mary Lou](http://tympanus.net/codrops/author/crnacura/).
 
 #### MIT © [dreamweiver](http://stackoverflow.com/users/1677272/dreamweiver)
 

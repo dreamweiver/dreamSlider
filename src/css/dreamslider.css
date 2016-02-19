@@ -1,0 +1,192 @@
+.description{
+	position:fixed;
+	right:10px;
+	top:10px;
+	font-size:12px;
+	color:#888;
+}
+
+.dreamSlider_title{
+ color : #47ECBA;
+}
+
+span.reference{
+	position:fixed;
+	left:10px;
+	bottom:10px;
+	font-size:12px;
+}
+span.reference a{
+	color:#888;
+	text-transform:uppercase;
+	text-decoration:none;
+	padding-right:20px;
+}
+span.reference a:hover{
+	color:#444;
+}
+
+.container .im_wrapper .default_ease_zoom:hover {
+    z-index: 2;
+    -webkit-transition: all 0s ease-in;
+    -o-transition: all 0s ease-in;
+    -webkit-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transition: all 0s ease-in;
+    -ms-transform: scale(1.1);
+    -moz-transition: all 0s ease-in;
+    -moz-transform: scale(1.1);
+    transition: all 0s ease-in;
+    transform: scale(1.1);
+ }
+
+body{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color: #555;
+}
+h1{
+	font-size:38px;
+	margin:10px;
+}
+h1 span{
+	font-size:20px;
+	color : black;
+}
+
+.container .im_wrapper div{
+	left:-500px;
+	width:125px;
+	height:125px;
+	position:absolute;
+	background-repeat:no-repeat;
+	background-color:#fff;
+	cursor:pointer;
+	-moz-box-shadow:1px 1px 3px #000;
+	-webkit-box-shadow:1px 1px 3px #000;
+	box-shadow:1px 1px 3px #000;
+}
+
+.container .curved {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px; /* future proofing */
+}
+.container .im_wrapper div img{
+	float:left;
+	width:115px;
+	height:115px;
+	margin:5px 0 0 5px;
+}
+.container .im_loading{
+	display:none;
+	position:fixed;
+	top:50%;
+	left:50%;
+	margin:-35px 0 0 -35px;
+	width:70px;
+	height:70px;
+	z-index:9999;
+}
+.container .im_next,
+.container .im_prev{
+	width:50px;
+	height:50px;
+	position:fixed;
+	bottom:50%;
+	margin-top:-25px;
+	cursor:pointer;
+	opacity:0.7;
+	z-index:1000;
+	-moz-box-shadow:0 0 3px #000;
+	-webkit-box-shadow:0 0 3px #000;
+	box-shadow:0 0 3px #000;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=70);
+}
+.container .im_next:hover,
+.container .im_prev:hover
+{
+	opacity:0.9;
+	z-index: 2;
+    -webkit-transition: all 200ms ease-in;
+    -o-transition: all 200ms ease-in;
+    -webkit-transform: scale(1.5);
+    -o-transform: scale(1.5);
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1.5);
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1.5);
+    transition: all 200ms ease-in;
+    transform: scale(1.5);
+}
+.container .im_next{
+	background:#fff url(../../demo/img/next.png) no-repeat center center;
+	right:-50px; /*10 to show*/
+}
+.container .im_prev{
+	background:#fff url(../../demo/img/prev.png) no-repeat center center;
+	left:-50px; /*10 to show*/
+}
+
+/*Pure CSS3 loader*/
+@-webkit-keyframes line-scale-pulse-out {
+  0% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1);
+  }
+  50% {
+    -webkit-transform: scaley(0.4);
+    transform: scaley(0.4);
+  }
+  100% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1);
+  }
+}
+
+@keyframes line-scale-pulse-out {
+  0% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1);
+  }
+  50% {
+    -webkit-transform: scaley(0.4);
+    transform: scaley(0.4);
+  }
+  100% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1);
+  }
+}
+
+.container .im_loading .line-scale-pulse-out > div {
+  background-color: #47ECBA;
+  width: 4px;
+  height: 35px;
+  border-radius: 2px;
+  margin: 2px;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  animation-fill-mode: both;
+  display: inline-block;
+  -webkit-animation: line-scale-pulse-out 0.9s -0.6s infinite cubic-bezier(0.85, 0.25, 0.37, 0.85);
+  -moz-animation: line-scale-pulse-out 0.9s -0.6s infinite cubic-bezier(0.85, 0.25, 0.37, 0.85);
+  animation: line-scale-pulse-out 0.9s -0.6s infinite cubic-bezier(0.85, 0.25, 0.37, 0.85);
+}
+
+.container .im_loading .line-scale-pulse-out > div:nth-child(2),
+.container .im_loading .line-scale-pulse-out > div:nth-child(4) {
+  -webkit-animation-delay: -0.4s !important;
+  -moz-animation-delay: -0.4s !important;
+  animation-delay: -0.4s !important;
+}
+
+.container .im_loading .line-scale-pulse-out > div:nth-child(1),
+.container .im_loading .line-scale-pulse-out > div:nth-child(5) {
+  -webkit-animation-delay: -0.2s !important;
+  -moz-animation-delay: -0.2s !important;
+  animation-delay: -0.2s !important;
+}
