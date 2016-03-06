@@ -7,6 +7,10 @@ Description
 ----------------
 DreamSlider is a jQuery image slider plugin with great visual effects.
 
+Demo
+----------------
+jQuery DreamSlider [Demo](https://dreamweiver.github.io/dreamSlider/)
+
 Main Features
 ----------------
 +    Hover effects for thumbnails : Zoom-in(default),bounce,standout.
@@ -28,7 +32,7 @@ add the following css style sheet to the &lt;head&gt; of your document.
 Add the following js scripts references to the body tag after the images are loaded for optimum performance benefit.
 ```html
 <div class="container">
-    <div iclass="im_wrapper">
+    <div class="im_wrapper">
         <div ><img src="images/1.jpg" alt="" /></div>
         <div ><img src="images/2.jpg" alt="" /></div>
         <div ><img src="images/3.jpg" alt="" /></div>
@@ -62,7 +66,7 @@ If you think you might have found a bug or if you have a feature suggestion, ple
 
 If you need any help with implementing dreamSlider in your project or if have you any personal support requests, then please use [stackoverflow](https://stackoverflow.com/) to post a question & tag me to your question using my SO id @dreamweiver or you can even mail me directly to my personal maibox dreamweiver.manoj@gmail.com, instead of raising a issue on dreamSlider github page.
 
-If you like dreamSlider then star this repository or if you any feebacks about this project then do drop me a mail.
+If you like dreamSlider then star this repository or if you any feedbacks about this project then do drop me a mail.
 [@dreamweiver](mailto:dreamweiver.manoj@gmail.com)
 
 ### Contributions ###
