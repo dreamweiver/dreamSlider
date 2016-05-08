@@ -70,7 +70,7 @@ If you like dreamSlider then star this repository or if you any feedbacks about 
 [@dreamweiver](mailto:dreamweiver.manoj@gmail.com)
 
 ### Contributions ###
-Base idea of DreamSlider was created by [Mary Lou](http://tympanus.net/codrops/author/crnacura/).
+Special thanks to [Mary Lou](http://tympanus.net/codrops/author/crnacura/), whose base idea was an inspiration to build "dreamslider.js".
 
 #### MIT © [dreamweiver](http://stackoverflow.com/users/1677272/dreamweiver)
 

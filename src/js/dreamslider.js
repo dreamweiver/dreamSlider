@@ -1,8 +1,6 @@
-//Paul Irish smartresize : http://paulirish.com/2009/throttled-smartresize-jquery-event-handler/
 (function ($) {
     'use strict';
-   // debouncing function from John Hann
-   // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
+    // debouncing logic
     var debounce = function (func, threshold, execAsap) {
         var timeout;
         return function debounced() {
@@ -23,19 +21,53 @@
         };
     };
 
+    //template for spinner,navigation controls & empty thumbs filler
+    var staticTmpl = {
+        loaderTmpl : '<div class="im_loading">'+
+                          '<div class="loader-inner line-scale-pulse-out">'+
+                            '<div></div>' +
+                            '<div></div>' +
+                            '<div></div>' +
+                            '<div></div>' +
+                            '<div></div>' +
+                          '</div>'+
+                      '</div>'+
+                      '<div class="im_next"></div>' +
+                      '<div class="im_prev"></div>',
+        thumbsContTmpl : '<div class="thmb_filler"><img src="img/thumbsCont.png" alt="No Image"/></div>'
+    } ;
 
-   //Mary Lou : http://tympanus.net/codrops/2010/11/30/merging-image-boxes/
-   //Dream Slider functions starts here
+    var thumbsFiller = function ($imWrapper, $perline){
+        var $thumbsOnPage = $imWrapper.children('div');
+        var thumbsCount = $thumbsOnPage.length;
+        var thumbsPerSingleMode = $perline * 5;
+        //populate filler thumbs container if they are less than COUNT X 5 [number of rows for single-mode image]
+        if(thumbsCount < thumbsPerSingleMode || thumbsCount % $perline !== 0){
+            var nextThumbsCntLimit = thumbsCount > thumbsPerSingleMode ?
+                                        (Math.ceil(thumbsCount/$perline)) * $perline : thumbsPerSingleMode;
+            for (var index = thumbsCount; index < nextThumbsCntLimit; index++){
+                $imWrapper.append(staticTmpl.thumbsContTmpl);
+            }
+            return $imWrapper.children('div');
+        }
+        return $thumbsOnPage;
+    };
+
+    //Dream Slider functions starts here
     var dreamSlider = function ($container, options) {
 
         //flag to control the click event
         var flgClick = true;
         //the wrapper/ root div
         var $imWrapper = $container.find('.im_wrapper');
-        //the thumbs
-        var $thumbs = $imWrapper.children('div');
+        //all the thumbs
+        var $thumbs = thumbsFiller($imWrapper, options.thumbsPerLine);
+        //all the thumbs excluding filler
+        var $thumbsNotFiller = $thumbs.not('.thmb_filler');
         //all the images
         var $thumbImgs = $thumbs.find('img');
+        //all images excluding filler
+        var $thumbImgsNotFiller = $thumbsNotFiller.find('img');
         //number of images
         var nmbThumbs = $thumbs.length;
         //image loading status
@@ -44,13 +76,13 @@
         var $imNext = null;
         var $imPrev = null;
         //number of thumbs per line
-        var perLine = options.rowCount;
+        var perLine = options.thumbsPerLine;
         //animation effectfrom options
         var easingEffect = 'none';
         //number of thumbs per column
         var perCol = Math.ceil(nmbThumbs / perLine);
         //Number of thumbs on View port as per standard size(1024 X 768)
-        var nmbThumbsInViewPort = 30;
+        var nmbThumbsInViewPort = perLine * 5;
         //Grid layout for single mode
         var $gridLayoutSingleMode = $imWrapper.children('div').slice(0, nmbThumbsInViewPort);
         //index of the current thumb
@@ -59,8 +91,8 @@
         var mode = 'grid';
         //thumbs in current view port
         var $curViewPortThumbs;
-        //an array with the positions of the thumbs
-        //we will use it for the navigation in single mode
+        //an array with the positions of the thumbs,
+        //used for the navigation in single mode
         var positionsArray = [];
         var i;
         var loaded = 0;
@@ -93,19 +125,7 @@
             positionsArray[i] = i;
         }
 
-        //add loader & navigation controls to script(next & previous)
-        var staticTmpl = '<div class="im_loading">'+
-                              '<div class="loader-inner line-scale-pulse-out">'+
-                                '<div></div>' +
-                                '<div></div>' +
-                                '<div></div>' +
-                                '<div></div>' +
-                                '<div></div>' +
-                              '</div>'+
-                          '</div>'+
-                          '<div class="im_next"></div>' +
-                          '<div class="im_prev"></div>';
-        $container.append(staticTmpl);
+        $container.append(staticTmpl.loaderTmpl);
 
         $imLoading = $container.find('.im_loading');
         $imNext = $container.find('.im_next');
@@ -114,7 +134,6 @@
         //preload all the images
         $imLoading.show();
 
-        //hover handlers section begin
         //hover handler for bounce animation
         function thumbsBounceHover($this) {
             $this.filter(':not(:animated)').animate({
@@ -128,46 +147,28 @@
         }
 
         function thumbsStandOutHover($this) {
-            $this.siblings().stop().fadeTo(300, 0.5);
-            /*$this.siblings().stop()
-            .css({
-               'filter'         : 'blur(2px)',
-               '-webkit-filter' : 'blur(2px)',
-               '-moz-filter'    : 'blur(2px)',
-               '-o-filter'      : 'blur(2px)',
-               '-ms-filter'     : 'blur(2px)'
-            });*/
+            $this.siblings().not('.thmb_filler').stop().fadeTo(300, 0.5);
         }
 
+        //Todo option3 hover handler
         function option3Hover() {
-            //option  hover handler
             return;
         }
 
-        //hover handlers section end
-
-        //blur handlers section begin
+        //blur handler for bounce animation
         function thumbsBounceBlur() {
             return;
         }
 
+        //blur handler for standout animation
         function thumbsStandOutBlur($this) {
-            $this.siblings().stop().fadeTo(500, 1);
-           /* $this.siblings().stop()
-            .css({
-               'filter'         : 'blur(0px)',
-               '-webkit-filter' : 'blur(0px)',
-               '-moz-filter'    : 'blur(0px)',
-               '-o-filter'      : 'blur(0px)',
-               '-ms-filter'     : 'blur(0px)'
-            });*/
+            $this.siblings().not('.thmb_filler').stop().fadeTo(500, 1);
         }
 
+        //Todo option3 blur handler
         function option3Blur() {
             return;
         }
-
-        //blur handlers section end
 
         function hoverEffect($targetThumbs) {
             $targetThumbs.hover(function () {
@@ -190,19 +191,19 @@
                 blurHandler = option3Blur;
             } else {
                 //when invalid 'easeEffect' provided set default ease effect(Zoom) & fallback
-                $thumbImgs.addClass('default_ease_zoom');
+                $thumbImgsNotFiller.addClass('default_ease_zoom');
                 easeOptionFallabck = true;
                 return;
             }
-            //finally attach hover and blur handlers to all $thumbs
-            hoverEffect($thumbs);
+            //finally attach hover and blur handlers to all $thumbs except for fillers
+            hoverEffect($thumbsNotFiller);
         } else {
-            $thumbImgs.addClass('default_ease_zoom');
+            $thumbImgsNotFiller.addClass('default_ease_zoom');
         }
 
         //controls if we can click on the thumbs or not
         //if theres an animation in progress
-        //we don't want the user to be able to click
+        //prevent user form clicking
         function setflag() {
             flgClick = !flgClick;
         }
@@ -217,25 +218,22 @@
             //center point for first thumb along the width of the window
             var spacesW = $(window).width() / (perLine + 1);
             //vertical space captured for each thumb as noOfThumbsPerColumn * heightOfThumb
-            //var spacesH = $(window).height()/(perCol + 1);
-            var verticalHeight = ($thumbs.height() + 30) * perCol;
-            var spacesH = verticalHeight / (perCol + 1);
-            //console.log("width and height:" + $(window).width() + ":" + $(window).height());
+            var verticalHeight = ($thumbs.height() + 35) * perCol;
+            var spacesH = verticalHeight / (perCol + 1) + 3 ;
 
             //let's disperse the thumbs equally on the page
             $thumbs.each(function (i) {
                 var $thumb = $(this);
                 //calculate left and top for each thumb,
-                //considering how many we want per line
+                //considering how many specified in the api
                 var left = spacesW * ((i % perLine) + 1) - $thumb.width() / 2;
                 var top = spacesH * (Math.ceil((i + 1) / perLine)) - $thumb.height() / 2;
-                //lets give a random degree to each thumb
-                //var rotate = Math.floor(Math.random() * 41) - 20;
+
                 /*
-                now we animate the thumb to its final positions;
-                we also fade in its image, animate it to 115x115,
-                and remove any background image  of the thumb - this
-                is not relevant for the first time we call disperse,
+                thumba are animated to its final positions;
+                also image are fade in to thumbs, animated to its 115x115 dimension,
+                and background image of the thumb is removed - this
+                is not relevant for the first time when disperse is called,
                 but when changing from single to grid mode
                 */
                 var param = {
@@ -245,7 +243,6 @@
 
                 $thumb.stop()
                     .animate(param, 700, function () {
-                        //if(i==nmbThumbs-1){
                         if (i === nmbThumbsInViewPort - 1) {
                             setflag();
                         }
@@ -255,26 +252,31 @@
                         $thumb.css({
                             'background-image': 'none'
                         });
-                        $(this).animate({
-                            width: '115px',
-                            height: '115px',
-                            marginTop: '5px',
-                            marginLeft: '5px'
-                        }, 150);
+                        if(!$thumb.hasClass('thmb_filler')){
+                             $(this).animate({
+                                width: '115px',
+                                height: '115px',
+                                marginTop: '5px',
+                                marginLeft: '5px'
+                            }, 150);
+                        } else {
+                            $(this).removeAttr('style');
+                            $thumb.css('opacity','0.3');
+                        }
                     });
             });
 
             //attach the hover effect back to the $thumbs
             if (easingEffect !== 'none' && !easeOptionFallabck) {
 
-                //remove/reverse all animation effects from  all $thumbs
+                //remove/reverse all animation effects from  all $thumbs except fillers,
                 //before despersing them
-                $thumbs.fadeTo(100, 1);
+                $thumbsNotFiller.fadeTo(100, 1);
 
-                //attach the hover and blur handlers back to all $thumbs
-                hoverEffect($thumbs);
+                //attach the hover and blur handlers back to all $thumbs except fillers
+                hoverEffect($thumbsNotFiller);
             }
-            //add border radius back to thumbs
+            //add border radius back to all thumbs to make look curved as before
             $thumbs.addClass('curved');
         }
 
@@ -336,8 +338,6 @@
             $imPrev.stop().animate({left: '0px'}, 300);
         }
 
-
-
         //scroll to single mode view
         function scrollToView(targetIndex) {
             var targetThumb = $imWrapper.children('div').slice(targetIndex, targetIndex + 1);
@@ -349,19 +349,19 @@
 
 
         /*
-        when we click on a thumb, we want to merge them
-        and show the full image that was clicked.
-        we need to animate the thumbs positions in order
-        to center the final image in the screen. The
-        image itself is the background image that each thumb
-        will have (different background positions)
-        If we are currently seeing the single image,
-        then we want to disperse the thumbs again,
-        and with this, showing the thumbs images.
+        when any of the thumb is clicked, all the thumbs
+        on grid are merged together and clicked thumbs image
+        is shown in single mode(maximum dimension 690 X 575).
+        thumsb are animated to show the single image in center
+        of the screen. The original image itself is the background
+        image that each thumb will have (different background positions)
+        On clicking over the single image will disperse the image as
+        thumbs in grid layout as before.
         */
 
         $thumbs.on('click', function () {
-            if (!flgClick) {
+            if ((!flgClick) ||
+                $(this).hasClass('thmb_filler') && mode === 'grid' ) {
                 return;
             }
             setflag();
@@ -394,14 +394,12 @@
                     gridStartIndex = Math.floor(Math.abs((current - 24) / 6)) * 6;
                 }
 
-                //gridStartIndex = Math.floor(current / 30) * 30;
                 gridEndIndex = gridStartIndex + nmbThumbsInViewPort;
                 $curViewPortThumbs = $imWrapper.children('div').slice(gridStartIndex, gridEndIndex);
                 $gridLayoutSingleMode = addBackgroundPosition($curViewPortThumbs);
 
                 //scroll to active single mode view
                 scrollToView(gridStartIndex);
-
 
                 //remove the hover animation effect from all thumbs
                 $thumbs.off('mouseenter mouseleave');
@@ -410,7 +408,6 @@
                 //before showing them in single mode
                 $curViewPortThumbs.fadeTo(100, 1);
 
-                //$thumbs.each(function(i){
                 $gridLayoutSingleMode.each(function (i) {
                     var $thumb = $(this);
                     var $image = $thumb.find('img');
@@ -419,9 +416,6 @@
                         // remove the suffix 'px' from the css property value
                         fT = parseInt($thumb.css('top'), 10);
                     }
-
-                    //var left = fL + (i % perLine) * 125;
-                    //var top = fT + Math.floor(i / perLine) * 125;
 
                     //first we animate the thumb image
                     //to fill the thumbs dimentions
@@ -446,7 +440,6 @@
                         }).stop()
                             .animate(param, 1200, function () {
                                 //insert navigation for the single mode
-                                //if(i==nmbThumbs-1){
                                 if (i === nmbThumbsInViewPort - 1) {
                                     addNavigation();
                                     setflag();
@@ -465,7 +458,7 @@
             }
         });
 
-        //User clicks next button (single mode)
+        //User clicks next button (single mode), switch to next image in cycle
         $imNext.bind('click', function () {
             if (!flgClick) {
                 return;
@@ -474,6 +467,9 @@
 
             ++current;
             var $nextThumb = $imWrapper.children('div:nth-child(' + (current + 1) + ')');
+            if($nextThumb.hasClass('thmb_filler')){
+                return;
+            }
             if ($nextThumb.length > 0) {
                 var imageSrc = $nextThumb.find('img').attr('src');
                 var arr = Array.shuffle(positionsArray.slice(0));
@@ -497,7 +493,7 @@
             }
         });
 
-        //User clicks prev button (single mode)
+        //User clicks prev button (single mode),switch to previous image in cycle
         $imPrev.bind('click', function () {
             if (!flgClick) {
                 return;
@@ -505,6 +501,9 @@
             setflag();
             --current;
             var $prevThumb = $imWrapper.children('div:nth-child(' + (current + 1) + ')');
+            if($prevThumb.hasClass('thmb_filler')){
+                return;
+            }
             if ($prevThumb.length > 0) {
                 var imageSrc = $prevThumb.find('img').attr('src');
                 var arr = Array.shuffle(positionsArray.slice(0));
@@ -526,13 +525,14 @@
             }
         });
 
-        //on windows resize call the disperse function
+        //on windows resize call the disperse function.
         $(window).smartresize(function () {
             removeNavigation();
             disperse();
         });
 
-        //function to shuffle an array
+        //function to shuffle an array of images when navigated
+        //between images in single mode
         Array.shuffle = function (array){
             var j,x,k;
             for( k = array.length; k;
@@ -544,13 +544,12 @@
         };
     };
 
-   /* Public jquery functions exposed */
-   //Smart Resize
+   //Smart Resize function with debouncing logic
    jQuery.fn.smartresize = function (fn) {
         return fn ? this.bind('resize', debounce(fn)) : this.trigger('smartresize');
     };
 
-   //Dream Slider
+   //Dream Slider,fun begins here
    jQuery.fn.dreamSlider = function (options) {
         return dreamSlider($(this), options);
     };

@@ -19,11 +19,11 @@ module.exports = function (grunt) {
         clean: {
             files: ['dist']
         },
-        concat: {
+        /*concat: {
             options: {
                 banner: '<%= banner %>',
             },
-            basic: {
+           /* basic: {
               src: ['src/js/<%= pkg.name %>.js'],
               dest: 'dist/js/<%= pkg.name %>.js'
             },
@@ -31,7 +31,7 @@ module.exports = function (grunt) {
               src: ['src/css/<%= pkg.name %>.css'],
               dest: 'dist/css/<%= pkg.name %>.css'
             }
-        },
+        },*/
         uglify: {
             options: {
                 banner: '<%= banner %>'
@@ -86,5 +86,5 @@ module.exports = function (grunt) {
     });
 
     // Default task.
-    grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify','cssmin', 'copy']);
+    grunt.registerTask('default', ['jshint', 'clean', 'uglify','cssmin', 'copy']);
 };

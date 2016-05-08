@@ -54,6 +54,10 @@ h1 span{
 	color : black;
 }
 
+
+.container .im_wrapper .thmb_filler{
+    cursor: not-allowed;
+}
 .container .im_wrapper div{
 	left:-500px;
 	width:125px;
@@ -72,12 +76,12 @@ h1 span{
     -webkit-border-radius: 10px;
     border-radius: 10px; /* future proofing */
 }
-.container .im_wrapper div img{
-	float:left;
-	width:115px;
-	height:115px;
-	margin:5px 0 0 5px;
+.container .im_wrapper img{
+	width:100px;
+	height:100px;
+	margin:10px 0 0 10px;
 }
+
 .container .im_loading{
 	display:none;
 	position:fixed;
