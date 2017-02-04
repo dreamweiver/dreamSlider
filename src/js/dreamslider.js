@@ -64,8 +64,21 @@
         var $thumbs = thumbsFiller($imWrapper, options.thumbsPerLine);
         //all the thumbs excluding filler
         var $thumbsNotFiller = $thumbs.not('.thmb_filler');
-        //all the images
-        var $thumbImgs = $thumbs.find('img');
+        //limit no of thumbs to load with images on screen(max that can fit in view-port)
+        var preLoadThumbsLimit;
+        //static margin for thumbs
+        var thumbMargin = 35;
+
+        //$thumbs dimensions
+        var $thumbsDimension = {
+            width : $thumbs.width(),
+            height: $thumbs.height()
+        };
+        //window dimensions
+        var windowDimensions = {
+            width : $(window).width(),
+            height : $(window).height()
+        };
         //all images excluding filler
         var $thumbImgsNotFiller = $thumbsNotFiller.find('img');
         //number of images
@@ -76,13 +89,13 @@
         var $imNext = null;
         var $imPrev = null;
         //number of thumbs per line
-        var perLine = options.thumbsPerLine;
+        var thumbsPerLine = options.thumbsPerLine;
         //animation effectfrom options
         var easingEffect = 'none';
         //number of thumbs per column
-        var perCol = Math.ceil(nmbThumbs / perLine);
+        var perCol = Math.ceil(nmbThumbs / thumbsPerLine);
         //Number of thumbs on View port as per standard size(1024 X 768)
-        var nmbThumbsInViewPort = perLine * 5;
+        var nmbThumbsInViewPort = thumbsPerLine * 5;
         //Grid layout for single mode
         var $gridLayoutSingleMode = $imWrapper.children('div').slice(0, nmbThumbsInViewPort);
         //index of the current thumb
@@ -95,12 +108,13 @@
         //used for the navigation in single mode
         var positionsArray = [];
         var i;
-        var loaded = 0;
+        var loadedImageIndex = 0;
         //generic hover handler
         var hoverHandler = null;
         //generic blur handler
         var blurHandler = null;
         var easeOptionFallabck = false;
+        var lastScrollTop = $(window).scrollTop(); 
 
         //load 'easeEffect' option to plugin
         if (!!options.easeEffect) {
@@ -133,6 +147,34 @@
 
         //preload all the images
         $imLoading.show();
+
+        //lazyload handler
+        var lazyloadHandler =  function (currentScrollTop, allLazyLoadImgs , allLazyLoadImgsCount) {
+            var viewportBottom = currentScrollTop + windowDimensions.height;
+
+            for(var index=0; index < allLazyLoadImgsCount; index++){
+                var lazyImage = allLazyLoadImgs[index];
+                var imgOffsetTop = lazyImage.parentElement.offsetTop;
+                 if(viewportBottom > imgOffsetTop) {
+                    $(lazyImage).attr('src',$(lazyImage).data('src'));
+                    $(lazyImage).removeClass('thmb_filler');
+                } 
+            }
+        };
+
+        //call lazyload handler on scroll event with debouncing logic
+        $(window).lazyLoad(function(){
+            var currentScrollTop = $(window).scrollTop();
+            var allLazyLoadImgs = $('.thmb_filler');
+            var allLazyLoadImgsCount = allLazyLoadImgs.length;
+
+            //handle lazy loading of images when one or more filler thumbs present on screen
+            //and scrolling downwards
+            if(allLazyLoadImgs.length > 0 && currentScrollTop > lastScrollTop) {
+                lastScrollTop = currentScrollTop;
+                lazyloadHandler(currentScrollTop, allLazyLoadImgs, allLazyLoadImgsCount);
+            } 
+        });
 
         //hover handler for bounce animation
         function thumbsBounceHover($this) {
@@ -208,6 +250,12 @@
             flgClick = !flgClick;
         }
 
+        //get the max limit of thumbs that can fit in current viewport
+        var getPreloadThumbsLimit = function() {
+            var totalThumbHeight = ($thumbsDimension.height + thumbMargin);
+            return (Math.ceil(windowDimensions.height / totalThumbHeight) * thumbsPerLine);
+        };
+
         //disperses the thumbs in a grid based on windows dimentions
         function disperse() {
             if (!flgClick) {
@@ -216,21 +264,25 @@
             setflag();
             mode = 'grid';
             //center point for first thumb along the width of the window
-            var spacesW = $(window).width() / (perLine + 1);
-            //vertical space captured for each thumb as noOfThumbsPerColumn * heightOfThumb
-            var verticalHeight = ($thumbs.height() + 35) * perCol;
+            var spacesW = windowDimensions.width / (thumbsPerLine + 1);
+            //vertical space captured for each thumb 
+            // = noOfThumbsPerColumn * (heightOfThumb + margin_space b/w thumbs)
+            var verticalHeight = ($thumbsDimension.height + thumbMargin) * perCol;
             var spacesH = verticalHeight / (perCol + 1) + 3 ;
+
+            //reset scroll
+            lastScrollTop = $(window).scrollTop();
 
             //let's disperse the thumbs equally on the page
             $thumbs.each(function (i) {
                 var $thumb = $(this);
                 //calculate left and top for each thumb,
                 //considering how many specified in the api
-                var left = spacesW * ((i % perLine) + 1) - $thumb.width() / 2;
-                var top = spacesH * (Math.ceil((i + 1) / perLine)) - $thumb.height() / 2;
+                var left = spacesW * ((i % thumbsPerLine) + 1) - $thumbsDimension.width / 2;
+                var top = spacesH * (Math.ceil((i + 1) / thumbsPerLine)) - $thumbsDimension.height / 2;
 
                 /*
-                thumba are animated to its final positions;
+                thumbs are animated to its final positions;
                 also image are fade in to thumbs, animated to its 115x115 dimension,
                 and background image of the thumb is removed - this
                 is not relevant for the first time when disperse is called,
@@ -248,7 +300,7 @@
                         }
                     })
                     .find('img')
-                    .fadeIn(700, function () {
+                    .fadeIn(500, function () {
                         $thumb.css({
                             'background-image': 'none'
                         });
@@ -258,7 +310,7 @@
                                 height: '115px',
                                 marginTop: '5px',
                                 marginLeft: '5px'
-                            }, 150);
+                            }, 500);
                         } else {
                             $(this).removeAttr('style');
                             $thumb.css('opacity','0.3');
@@ -283,27 +335,35 @@
         //starts the animation
         function start() {
             $imLoading.hide();
+
             //disperse the thumbs in a grid
             disperse();
         }
 
-        $thumbImgs.each(function () {
-            var $this = $(this);
+        function loadImages ($thumbImages) {
+            //load maximum images that are accomodatable on current viewport, 
+            //rest would be handled as lazy load
+            preLoadThumbsLimit = getPreloadThumbsLimit();
 
-            $('<img/>').load(function () {
-                ++loaded;
-                if (loaded === nmbThumbs * 2) {
-                    start();
-                }
-            }).attr('src', $this.attr('src'));
+            $thumbImages.each(function (index) {
+                var $img = $(this).find('img');
 
-            $('<img/>').load(function () {
-                ++loaded;
-                if (loaded === nmbThumbs * 2) {
-                    start();
+                if(index < preLoadThumbsLimit){
+                    $img.attr('src', $img.data('src'));
                 }
-            }).attr('src', $this.attr('src'));
-        });
+                else {
+                    $img.addClass('thmb_filler');
+                }
+
+                $img.on('load', function () {
+                    ++loadedImageIndex;
+                    if (loadedImageIndex === preLoadThumbsLimit) {
+                        start();
+                    }
+                });
+            });
+        }
+
 
         /* Add background position to each grid in current view port */
         function addBackgroundPosition(thumbs) {
@@ -371,10 +431,10 @@
             var gridEndIndex = 0;
 
             //calculate the dimentions of the for every thumb to show in single mode
-            var fW = perLine * 125;
+            var fW = thumbsPerLine * 125;
             var fH = perCol * 125;
-            var fL = $(window).width() / 2 - fW / 2;
-            var fT = $(window).height() / 2 - fH / 2;
+            var fL = windowDimensions.width / 2 - fW / 2;
+            var fT = windowDimensions.height / 2 - fH / 2;
 
             current = $this.index();
 
@@ -430,8 +490,8 @@
                         and animate the thumb_imgs postions and rotation
                         */
                        var param = {
-                            left: fL + (i % perLine) * 125 + 'px',
-                            top: fT + Math.floor(i / perLine) * 125 + 'px'
+                            left: fL + (i % thumbsPerLine) * 125 + 'px',
+                            top: fT + Math.floor(i / thumbsPerLine) * 125 + 'px'
                         };
 
                         $thumb.css({
@@ -528,6 +588,8 @@
         //on windows resize call the disperse function.
         $(window).smartresize(function () {
             removeNavigation();
+            windowDimensions.width = $(window).width();
+            windowDimensions.height = $(window).height();
             disperse();
         });
 
@@ -542,6 +604,14 @@
             }
             return array;
         };
+
+        //load every image as thumb
+        loadImages.call(this, $thumbs);
+    };
+
+   //LazyLoad Images with debouncing logic
+   jQuery.fn.lazyLoad = function (fn) {
+        return fn ? this.bind('scroll', debounce(fn)) : this.trigger('lazyLoad');
     };
 
    //Smart Resize function with debouncing logic

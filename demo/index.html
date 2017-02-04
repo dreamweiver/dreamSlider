@@ -6,7 +6,49 @@
         <meta name="description" content="Dream Slider a jQuery treat" />
         <meta name="keywords" content="jquery, dreamslider, slider, effect, images, photos, animation, background-image"/>
         <link rel="stylesheet" href="../dist/css/dreamslider.min.css" type="text/css" media="screen"/>
-        <link rel="stylesheet" href="style.css" type="text/css" media="screen"/>
+        <style type="text/css">
+            body{
+                font-family:Arial, Helvetica, sans-serif;
+                font-size:12px;
+                color: #555;
+            }
+            h1{
+                font-size:38px;
+                margin:10px;
+            }
+            h1 span{
+                font-size:20px;
+                color : black;
+            }
+
+            .description{
+                position:fixed;
+                right:10px;
+                top:10px;
+                font-size:12px;
+                color:#888;
+            }
+
+            .dreamSlider_title{
+             color : #47ECBA;
+            }
+
+            span.reference{
+                position:fixed;
+                left:10px;
+                bottom:10px;
+                font-size:12px;
+            }
+            span.reference a{
+                color:#888;
+                text-transform:uppercase;
+                text-decoration:none;
+                padding-right:20px;
+            }
+            span.reference a:hover{
+                color:#444;
+            }
+        </style>
     </head>
 
     <body>
@@ -15,54 +57,55 @@
             <div class="description">Click on the thumbs or the large image</div>
             <div class="im_wrapper">
 
-                <div ><img src="img/1.jpg" alt="" /></div>
-                <div ><img src="img/2.jpg" alt="" /></div>
-                <div ><img src="img/3.jpg" alt="" /></div>
-                <div ><img src="img/4.jpg" alt="" /></div>
-                <div ><img src="img/5.jpg" alt="" /></div>
-                <div ><img src="img/6.jpg" alt="" /></div>
+                <div ><img data-src="img/1.jpg" alt="" /></div>
+                <div ><img data-src="img/2.jpg" alt="" /></div>
+                <div ><img data-src="img/3.jpg" alt="" /></div>
+                <div ><img data-src="img/4.jpg" alt="" /></div>
+                <div ><img data-src="img/5.jpg" alt="" /></div>
+                <div ><img data-src="img/6.jpg" alt="" /></div>
 
-                <div ><img src="img/7.jpg" alt="" /></div>
-                <div ><img src="img/8.jpg" alt="" /></div>
-                <div ><img src="img/9.jpg" alt="" /></div>
-                <div ><img src="img/10.jpg" alt="" /></div>
-                <div ><img src="img/11.jpg" alt="" /></div>
-                <div ><img src="img/12.jpg" alt="" /></div>
+                <div ><img data-src="img/7.jpg" alt="" /></div>
+                <div ><img data-src="img/8.jpg" alt="" /></div>
+                <div ><img data-src="img/9.jpg" alt="" /></div>
+                <div ><img data-src="img/10.jpg" alt="" /></div>
+                <div ><img data-src="img/11.jpg" alt="" /></div>
+                <div ><img data-src="img/12.jpg" alt="" /></div>
 
-                <div ><img src="img/13.jpg" alt="" /></div>
-                <div ><img src="img/14.jpg" alt="" /></div>
-                <div ><img src="img/15.jpg" alt="" /></div>
-                <div ><img src="img/16.jpg" alt="" /></div>
-                <div ><img src="img/17.jpg" alt="" /></div>
-                <div ><img src="img/18.jpg" alt="" /></div>
+                <div ><img data-src="img/13.jpg" alt="" /></div>
+                <div ><img data-src="img/14.jpg" alt="" /></div>
+                <div ><img data-src="img/15.jpg" alt="" /></div>
+                <div ><img data-src="img/16.jpg" alt="" /></div>
+                <div ><img data-src="img/17.jpg" alt="" /></div>
+                <div ><img data-src="img/18.jpg" alt="" /></div>
 
-                <div ><img src="img/19.jpg" alt="" /></div>
-                <div ><img src="img/20.jpg" alt="" /></div>
-                <div ><img src="img/21.jpg" alt="" /></div>
-                <div ><img src="img/22.jpg" alt="" /></div>
-                <div ><img src="img/23.jpg" alt="" /></div>
-                <div ><img src="img/24.jpg" alt="" /></div>
+                <div ><img data-src="img/19.jpg" alt="" /></div>
+                <div ><img data-src="img/20.jpg" alt="" /></div>
+                <div ><img data-src="img/21.jpg" alt="" /></div>
+                <div ><img data-src="img/22.jpg" alt="" /></div>
+                <div ><img data-src="img/23.jpg" alt="" /></div>
+                <div ><img data-src="img/24.jpg" alt="" /></div>
 
-                <div ><img src="img/25.jpg" alt="" /></div>
-                <div ><img src="img/26.jpg" alt="" /></div>
-                <div ><img src="img/27.jpg" alt="" /></div>
-                <div ><img src="img/28.jpg" alt="" /></div>
-                <div ><img src="img/29.jpg" alt="" /></div>
-                <div ><img src="img/30.jpg" alt="" /></div>
+                <div ><img data-src="img/25.jpg" alt="" /></div>
+                <div ><img data-src="img/26.jpg" alt="" /></div>
+                <div ><img data-src="img/27.jpg" alt="" /></div>
+                <div ><img data-src="img/28.jpg" alt="" /></div>
+                <div ><img data-src="img/29.jpg" alt="" /></div>
+                <div ><img data-src="img/30.jpg" alt="" /></div>
 
-                <div ><img src="img/31.jpg" alt="" /></div>
-                <div ><img src="img/32.jpg" alt="" /></div>
-                <div ><img src="img/33.jpg" alt="" /></div>
-                <div ><img src="img/34.jpg" alt="" /></div>
-                <div ><img src="img/35.jpg" alt="" /></div>
-                <div ><img src="img/36.jpg" alt="" /></div>
+                <div ><img data-src="img/31.jpg" alt="" /></div>
+                <div ><img data-src="img/32.jpg" alt="" /></div>
+                <div ><img data-src="img/33.jpg" alt="" /></div>
+                <div ><img data-src="img/34.jpg" alt="" /></div>
+                <div ><img data-src="img/35.jpg" alt="" /></div>
+                <div ><img data-src="img/36.jpg" alt="" /></div>
 
-                <div ><img src="img/37.jpg" alt="" /></div>
-                <div ><img src="img/38.jpg" alt="" /></div>
-                <div ><img src="img/39.jpg" alt="" /></div>
-                <div ><img src="img/40.jpg" alt="" /></div>
-                <div ><img src="img/41.jpg" alt="" /></div>
-                <div ><img src="img/42.jpg" alt="" /></div>
+                <div ><img data-src="img/37.jpg" alt="" /></div>
+                <div ><img data-src="img/38.jpg" alt="" /></div>
+                <div ><img data-src="img/39.jpg" alt="" /></div>
+                <div ><img data-src="img/40.jpg" alt="" /></div>
+                <div ><img data-src="img/41.jpg" alt="" /></div>
+                <div ><img data-src="img/42.jpg" alt="" /></div>
+
             </div>
 
             <div>
@@ -72,12 +115,12 @@
             </div>
         </div>
         <!-- The JavaScript libraries section-->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript" src="../dist/js/dreamslider.min.js"></script>
         <script type="text/javascript">
             $(function(){
                 $('.container').dreamSlider({
-                    thumbsPerLine:6
+                    thumbsPerLine:6,
                     //,easeEffect: 'bounce'
                     //,easeEffect: 'standOut'
                 });
