@@ -9,7 +9,7 @@ DreamSlider is a jQuery image slider plugin with great visual effects.
 
 Demo
 ----------------
-jQuery DreamSlider ##[Demo](https://dreamweiver.github.io/dreamSlider/)
+jQuery DreamSlider [Demo](https://dreamweiver.github.io/dreamSlider/)
 
 Main Features
 ----------------
