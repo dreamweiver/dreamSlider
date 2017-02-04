@@ -19,19 +19,15 @@ module.exports = function (grunt) {
         clean: {
             files: ['dist']
         },
-        /*concat: {
+        concat: {
             options: {
                 banner: '<%= banner %>',
-            },
-           /* basic: {
-              src: ['src/js/<%= pkg.name %>.js'],
-              dest: 'dist/js/<%= pkg.name %>.js'
             },
             extras: {
               src: ['src/css/<%= pkg.name %>.css'],
               dest: 'dist/css/<%= pkg.name %>.css'
             }
-        },*/
+        },
         uglify: {
             options: {
                 banner: '<%= banner %>'
@@ -62,7 +58,8 @@ module.exports = function (grunt) {
         },
         jshint: {
             options: {
-                reporter: require('jshint-stylish')
+                reporter: require('jshint-stylish'),
+                reporterOutput: ''
             },
             gruntfile: {
                 options: {
