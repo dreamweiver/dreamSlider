@@ -13,11 +13,12 @@ jQuery DreamSlider [Demo](https://dreamweiver.github.io/dreamSlider/)
 
 Main Features
 ----------------
-+    Hover effects for thumbnails : Zoom-in(default),bounce,standout.
 +    Single image/Gallery mode to create an image slideshow with thumbnails
 +    Small file size,easy to implement.
++    Quick load time due to progressive loading of images, which are beyond viewport using lazyloading technique
 +    No additional thumb images required.
-+    Browser support: v47.0,Firefox v42.0,IE11+ & many more to come.
++    Hover effects for thumbnails : Zoom-in(default),bounce,standout.
++    Browser support: Chrome v47.0 +,Firefox v42.0 +,IE11+ & many more to come.
 
 How to use dreamSlider?
 --------------------
@@ -25,7 +26,7 @@ How to use dreamSlider?
 ### The code ###
 add the following css style sheet to the &lt;head&gt; of your document.
 ```html
-<link type="text/css" rel="stylesheet" href="css/dreamSlider.css" />
+<link type="text/css" rel="stylesheet" href="css/dreamSlider.min.css" />
 ```
 
 ### HTML Structure ###
@@ -33,18 +34,18 @@ Add the following js scripts references to the body tag after the images are loa
 ```html
 <div class="container">
     <div class="im_wrapper">
-        <div ><img src="images/1.jpg" alt="" /></div>
-        <div ><img src="images/2.jpg" alt="" /></div>
-        <div ><img src="images/3.jpg" alt="" /></div>
-        <div ><img src="images/4.jpg" alt="" /></div>
-        <div ><img src="images/5.jpg" alt="" /></div>
-        <div ><img src="images/6.jpg" alt="" /></div>
+        <div ><img data-src="images/1.jpg" alt="" /></div>
+        <div ><img data-src="images/2.jpg" alt="" /></div>
+        <div ><img data-src="images/3.jpg" alt="" /></div>
+        <div ><img data-src="images/4.jpg" alt="" /></div>
+        <div ><img data-src="images/5.jpg" alt="" /></div>
+        <div ><img data-src="images/6.jpg" alt="" /></div>
     </div>
 </div>
 
 <!-- The JavaScript libraries section-->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script type="text/javascript" src="js/dream.slider.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/dreamslider.min.js"></script>
 ...
 ```
 
@@ -53,7 +54,7 @@ Add the following js scripts references to the body tag after the images are loa
  <script type="text/javascript">
     $(function(){
         $('#container').dreamSlider({
-            rowCount:6 //[limit 5 or 6] no of thumbs in a row
+            rowCount:6 //no of thumbs in a row [limit 5 or 6] 
             //,easeEffect: 'bounce'
             //,easeEffect: 'standOut'
         });

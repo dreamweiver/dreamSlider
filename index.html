@@ -64,11 +64,12 @@
 <a id="main-features" class="anchor" href="#main-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Main Features</h2>
 
 <ul>
-<li>   Hover effects for thumbnails : Zoom-in(default),bounce,standout.</li>
 <li>   Single image/Gallery mode to create an image slideshow with thumbnails</li>
 <li>   Small file size,easy to implement.</li>
+<li>    Quick load time due to progressive loading of images, which are beyond viewport using lazyloading technique</li>
 <li>   No additional thumb images required.</li>
-<li>   Browser support: v47.0,Firefox v42.0,IE11+ &amp; many more to come.</li>
+<li>   Hover effects for thumbnails : Zoom-in(default),bounce,standout.</li>
+<li>   Browser support: Chrome v47.0+,Firefox v42.0+,IE11+ &amp; many more to come.</li>
 </ul>
 
 <h2>
@@ -79,7 +80,7 @@
 
 <p>Add the following css style sheet to the &lt;head&gt; of your document.</p>
 
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">link</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>css/dreamSlider.css<span class="pl-pds">"</span></span> /&gt;</pre></div>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">link</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/css<span class="pl-pds">"</span></span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>../dist/css/dreamSlider.min.css<span class="pl-pds">"</span></span> /&gt;</pre></div>
 
 <h3>
 <a id="html-structure" class="anchor" href="#html-structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HTML Structure</h3>
@@ -88,18 +89,18 @@
 
 <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>container<span class="pl-pds">"</span></span>&gt;
     &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>im_wrapper<span class="pl-pds">"</span></span>&gt;
-        &lt;<span class="pl-ent">div</span> &gt;&lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>images/1.jpg<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;&lt;/<span class="pl-ent">div</span>&gt;
-        &lt;<span class="pl-ent">div</span> &gt;&lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>images/2.jpg<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;&lt;/<span class="pl-ent">div</span>&gt;
-        &lt;<span class="pl-ent">div</span> &gt;&lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>images/3.jpg<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;&lt;/<span class="pl-ent">div</span>&gt;
-        &lt;<span class="pl-ent">div</span> &gt;&lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>images/4.jpg<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;&lt;/<span class="pl-ent">div</span>&gt;
-        &lt;<span class="pl-ent">div</span> &gt;&lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>images/5.jpg<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;&lt;/<span class="pl-ent">div</span>&gt;
-        &lt;<span class="pl-ent">div</span> &gt;&lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>images/6.jpg<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span> &gt;&lt;<span class="pl-ent">img</span> <span class="pl-e">data-src</span>=<span class="pl-s"><span class="pl-pds">"</span>images/1.jpg<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span> &gt;&lt;<span class="pl-ent">img</span> <span class="pl-e">data-src</span>=<span class="pl-s"><span class="pl-pds">"</span>images/2.jpg<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span> &gt;&lt;<span class="pl-ent">img</span> <span class="pl-e">data-src</span>=<span class="pl-s"><span class="pl-pds">"</span>images/3.jpg<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span> &gt;&lt;<span class="pl-ent">img</span> <span class="pl-e">data-src</span>=<span class="pl-s"><span class="pl-pds">"</span>images/4.jpg<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span> &gt;&lt;<span class="pl-ent">img</span> <span class="pl-e">data-src</span>=<span class="pl-s"><span class="pl-pds">"</span>images/5.jpg<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;&lt;/<span class="pl-ent">div</span>&gt;
+        &lt;<span class="pl-ent">div</span> &gt;&lt;<span class="pl-ent">img</span> <span class="pl-e">data-src</span>=<span class="pl-s"><span class="pl-pds">"</span>images/6.jpg<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> /&gt;&lt;/<span class="pl-ent">div</span>&gt;
     &lt;/<span class="pl-ent">div</span>&gt;
 &lt;/<span class="pl-ent">div</span>&gt;
 
 <span class="pl-c">&lt;!-- The JavaScript libraries section--&gt;</span>
-&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
-&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/dream.slider.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>../dist/js/dreamslider.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
 ...</pre></div>
 
 <h3>
@@ -108,7 +109,7 @@
 <div class="highlight highlight-text-html-basic"><pre><span class="pl-s1"> &lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;</span>
 <span class="pl-s1">    <span class="pl-en">$</span>(<span class="pl-k">function</span>(){</span>
 <span class="pl-s1">        <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>#container<span class="pl-pds">'</span></span>).<span class="pl-en">dreamSlider</span>({</span>
-<span class="pl-s1">            rowCount<span class="pl-k">:</span><span class="pl-c1">6</span> <span class="pl-c">//[limit 5 or 6] no of thumbs in a row</span></span>
+<span class="pl-s1">            rowCount<span class="pl-k">:</span><span class="pl-c1">6</span> <span class="pl-c">//no of thumbs in a row[limit 5 or 6] </span></span>
 <span class="pl-s1">            <span class="pl-c">//,easeEffect: 'bounce'</span></span>
 <span class="pl-s1">            <span class="pl-c">//,easeEffect: 'standOut'</span></span>
 <span class="pl-s1">        });</span>
@@ -128,7 +129,7 @@
 <h3>
 <a id="contributions" class="anchor" href="#contributions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributions</h3>
 
-<p>Base idea of DreamSlider was created by <a href="http://tympanus.net/codrops/author/crnacura/">Mary Lou</a>.</p>
+<p>Special thanks to <a href="http://tympanus.net/codrops/author/crnacura/">Mary Lou</a>, whose base idea was an inspiration to build "dreamslider.js".</p>
 
 <h4>
 <a id="mit--dreamweiver" class="anchor" href="#mit--dreamweiver" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MIT © <a href="http://stackoverflow.com/users/1677272/dreamweiver">dreamweiver</a>
